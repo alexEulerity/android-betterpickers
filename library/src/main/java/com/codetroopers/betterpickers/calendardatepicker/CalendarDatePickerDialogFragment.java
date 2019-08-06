@@ -354,7 +354,7 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
         mYearPickerView.setBackgroundColor(bodyBgColor);
         mDayPickerView.setBackgroundColor(bodyBgColor);
         
-        nowNeverButton = view.findViewById(R.id.now_never_button); 
+        nowNeverButton = (Button) view.findViewById(R.id.now_never_button); 
         if(optionalText != null){
             nowNeverButton.setText(optionalText);
         }
