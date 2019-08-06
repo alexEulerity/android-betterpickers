@@ -374,7 +374,7 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
         mHapticFeedbackController.stop();
     }
     
-    private void setOptionalButtonClickListener(View.OnClickListener onClickListener){
+    public void setOptionalButtonClickListener(View.OnClickListener onClickListener){
         nowNeverButton.setOnClickListener(onClickListener);
     }
 
