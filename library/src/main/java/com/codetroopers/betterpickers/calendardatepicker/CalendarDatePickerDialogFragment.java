@@ -125,6 +125,7 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
     
     private String optionalText;
     private Button nowNeverButton;
+    private View.OnClickListener optionalButtonOnClickListener;
 
     /**
      * The callback used to indicate the user is done filling in the date.
@@ -153,10 +154,11 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
         mStyleResId = R.style.BetterPickersRadialTimePickerDialog_PrimaryColor;
     }
     
-    public CalendarDatePickerDialogFragment(String optionalText) {
+    public CalendarDatePickerDialogFragment(String optionalText, View.OnClickListener onClickListener) {
         // Empty constructor required for dialog fragment.
         mStyleResId = R.style.BetterPickersRadialTimePickerDialog_PrimaryColor;
         this.optionalText = optionalText;
+        optionalButtonOnClickListener = onClickListener;
     }
 
     public boolean isThemeDark() {
@@ -357,6 +359,7 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
         nowNeverButton = (Button) view.findViewById(R.id.now_never_button); 
         if(optionalText != null){
             nowNeverButton.setText(optionalText);
+            nowNeverButton.setOnClickListener(optionalButtonOnClickListener);
         }
 
         return view;
@@ -372,10 +375,6 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
     public void onPause() {
         super.onPause();
         mHapticFeedbackController.stop();
-    }
-    
-    public void setOptionalButtonClickListener(View.OnClickListener onClickListener){
-        nowNeverButton.setOnClickListener(onClickListener);
     }
 
     private void setCurrentView(final int viewIndex) {
