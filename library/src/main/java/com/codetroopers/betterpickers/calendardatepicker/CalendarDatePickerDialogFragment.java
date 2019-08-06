@@ -154,11 +154,10 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
         mStyleResId = R.style.BetterPickersRadialTimePickerDialog_PrimaryColor;
     }
     
-    public CalendarDatePickerDialogFragment(String optionalText, View.OnClickListener onClickListener) {
+    public CalendarDatePickerDialogFragment(String optionalText) {
         // Empty constructor required for dialog fragment.
         mStyleResId = R.style.BetterPickersRadialTimePickerDialog_PrimaryColor;
         this.optionalText = optionalText;
-        optionalButtonOnClickListener = onClickListener;
     }
 
     public boolean isThemeDark() {
@@ -427,6 +426,10 @@ public class CalendarDatePickerDialogFragment extends DialogFragment implements 
                 Utils.tryAccessibilityAnnounce(mAnimator, mSelectYear);
                 break;
         }
+    }
+    
+    public void setOptionalClickListener(View.OnClickListener OnClickListener){
+        optionalButtonOnClickListener = OnClickListener;
     }
 
     private void updateDisplay(boolean announce) {
