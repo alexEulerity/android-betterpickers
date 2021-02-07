@@ -499,7 +499,7 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     }
     
     public void setOptionalButtonClickListener(View.OnClickListener onClickListener){
-        optionalButtonOnClickListener = OnClickListener;
+        optionalButtonOnClickListener = onClickListener;
     }
 
     public void tryVibrate() {
