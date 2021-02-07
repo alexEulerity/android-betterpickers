@@ -97,6 +97,9 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     private RadialPickerLayout mTimePicker;
     private TextView mTitleTextView;
     private NumberPickerErrorTextView mError;
+    private Button nowNeverButton;
+    private View.OnClickListener optionalButtonOnClickListener;
+
 
     private int mSelectedColor;
     private int mUnselectedColor;
@@ -131,6 +134,8 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     private String mSelectHours;
     private String mMinutePickerDescription;
     private String mSelectMinutes;
+    private String optionalText;
+
 
     /**
      * The callback interface used to indicate the user is done filling in the time (they clicked on the 'Set' button).
@@ -146,6 +151,15 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     }
 
     public RadialTimePickerDialogFragment() {
+        Calendar calendar = Calendar.getInstance();
+        mInitialMinute = calendar.get(Calendar.MINUTE);
+        mInitialHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        mInKbMode = false;
+        mStyleResId = R.style.BetterPickersRadialTimePickerDialog_PrimaryColor;
+    }
+    
+    public RadialTimePickerDialogFragment(String optionalText) {
+        this.optionalText = optionalText;
         Calendar calendar = Calendar.getInstance();
         mInitialMinute = calendar.get(Calendar.MINUTE);
         mInitialHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
@@ -431,6 +445,13 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
         mAllowAutoAdvance = true;
         setHour(mInitialHourOfDay, true);
         setMinute(mInitialMinute);
+        
+        //Set Up nowNever button
+        nowNeverButton = (Button) view.findViewById(R.id.now_never_button); 
+        if(optionalText != null){
+            nowNeverButton.setText(optionalText);
+            nowNeverButton.setOnClickListener(optionalButtonOnClickListener);
+        }
 
         // Set up for keyboard mode.
         mDoublePlaceholderText = res.getString(R.string.time_placeholder);
@@ -475,6 +496,10 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     public void onPause() {
         super.onPause();
         mHapticFeedbackController.stop();
+    }
+    
+    public void setOptionalButtonClickListener(View.OnClickListener onClickListener){
+        optionalButtonOnClickListener = OnClickListener;
     }
 
     public void tryVibrate() {
