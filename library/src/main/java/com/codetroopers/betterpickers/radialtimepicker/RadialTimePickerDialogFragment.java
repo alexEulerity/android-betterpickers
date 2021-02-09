@@ -352,20 +352,20 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
         setCurrentItemShowing(currentItemShowing, false, true, true);
         mTimePicker.invalidate();
 
-        mHourView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setCurrentItemShowing(HOUR_INDEX, true, false, true);
-                tryVibrate();
-            }
-        });
-        mMinuteView.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setCurrentItemShowing(MINUTE_INDEX, true, false, true);
-                tryVibrate();
-            }
-        });
+//         mHourView.setOnClickListener(new OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 setCurrentItemShowing(HOUR_INDEX, true, false, true);
+//                 tryVibrate();
+//             }
+//         });
+//         mMinuteView.setOnClickListener(new OnClickListener() {
+//             @Override
+//             public void onClick(View v) {
+//                 setCurrentItemShowing(MINUTE_INDEX, true, false, true);
+//                 tryVibrate();
+//             }
+//         });
 
         mTitleTextView = (TextView) view.findViewById(R.id.time_picker_header);
         if (mTitleText != null) {
@@ -612,12 +612,7 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
         if (pickerIndex == HOUR_INDEX) {
             setHour(newValue, false);
             String announcement = String.format("%d", newValue);
-            if (mAllowAutoAdvance && autoAdvance) {
-                setCurrentItemShowing(MINUTE_INDEX, true, true, false);
-                announcement += ". " + mSelectMinutes;
-            } else {
-                mTimePicker.setContentDescription(mHourPickerDescription + ": " + newValue);
-            }
+            mTimePicker.setContentDescription(mHourPickerDescription + ": " + newValue);
             Utils.tryAccessibilityAnnounce(mTimePicker, announcement);
         } else if (pickerIndex == MINUTE_INDEX) {
             setMinute(newValue);
@@ -665,6 +660,7 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
     // Show either Hours or Minutes.
     private void setCurrentItemShowing(int index, boolean animateCircle, boolean delayLabelAnimate,
                                        boolean announce) {
+        index = HOUR_INDEX;
         mTimePicker.setCurrentItemShowing(index, animateCircle);
 
         TextView labelToAnimate;
@@ -678,7 +674,9 @@ public class RadialTimePickerDialogFragment extends DialogFragment implements On
                 Utils.tryAccessibilityAnnounce(mTimePicker, mSelectHours);
             }
             labelToAnimate = mHourView;
-        } else {
+        } 
+        
+        else {
             int minutes = mTimePicker.getMinutes();
             mTimePicker.setContentDescription(mMinutePickerDescription + ": " + minutes);
             if (announce) {
